@@ -1,0 +1,63 @@
+{
+  "visualization": {
+    "type": "time_series",
+    "title": "Trials by start year",
+    "encoding": {
+      "x": "year",
+      "y": "trial_count"
+    },
+    "data": [
+      {
+        "year": 2019,
+        "trial_count": 1,
+        "citations": [
+          {
+            "nct_id": "NCT10000001",
+            "excerpt": "Example diabetes drug trial | Diabetes Mellitus | DrugA"
+          }
+        ]
+      },
+      {
+        "year": 2020,
+        "trial_count": 1,
+        "citations": [
+          {
+            "nct_id": "NCT10000002",
+            "excerpt": "Example diabetes drug trial | Diabetes Mellitus | DrugB"
+          }
+        ]
+      },
+      {
+        "year": 2021,
+        "trial_count": 1,
+        "citations": [
+          {
+            "nct_id": "NCT10000003",
+            "excerpt": "Example diabetes drug trial | Diabetes Mellitus | DrugA"
+          }
+        ]
+      }
+    ]
+  },
+  "meta": {
+    "units": "trials",
+    "sort": null,
+    "time_granularity": "year",
+    "group_by": "year",
+    "filters": {
+      "condition": "diabetes",
+      "query_term": "diabetes"
+    },
+    "source": {
+      "name": "ClinicalTrials.gov",
+      "api": "https://clinicaltrials.gov/api/v2/studies",
+      "retrieved_at": "2026-04-03T16:04:24.602018Z",
+      "result_count": 3
+    },
+    "assumptions": [
+      "Counts are derived only from studies returned by ClinicalTrials.gov for the built query.term.",
+      "Multi-phase trials are counted once per phase label present in the study record."
+    ],
+    "warnings": null
+  }
+}

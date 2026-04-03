@@ -1,0 +1,67 @@
+{
+  "visualization": {
+    "type": "scatter_plot",
+    "title": "Enrollment vs start year",
+    "encoding": {
+      "x": "start_year",
+      "y": "enrollment",
+      "id": "nct_id"
+    },
+    "data": [
+      {
+        "start_year": 2019,
+        "enrollment": 120,
+        "nct_id": "NCT10000001",
+        "citations": [
+          {
+            "nct_id": "NCT10000001",
+            "excerpt": "Example diabetes drug trial | Diabetes Mellitus | DrugA"
+          }
+        ]
+      },
+      {
+        "start_year": 2020,
+        "enrollment": 120,
+        "nct_id": "NCT10000002",
+        "citations": [
+          {
+            "nct_id": "NCT10000002",
+            "excerpt": "Example diabetes drug trial | Diabetes Mellitus | DrugB"
+          }
+        ]
+      },
+      {
+        "start_year": 2021,
+        "enrollment": 120,
+        "nct_id": "NCT10000003",
+        "citations": [
+          {
+            "nct_id": "NCT10000003",
+            "excerpt": "Example diabetes drug trial | Diabetes Mellitus | DrugA"
+          }
+        ]
+      }
+    ]
+  },
+  "meta": {
+    "units": "trials",
+    "sort": null,
+    "time_granularity": null,
+    "group_by": null,
+    "filters": {
+      "condition": "diabetes",
+      "query_term": "diabetes"
+    },
+    "source": {
+      "name": "ClinicalTrials.gov",
+      "api": "https://clinicaltrials.gov/api/v2/studies",
+      "retrieved_at": "2026-04-03T16:04:24.608305Z",
+      "result_count": 3
+    },
+    "assumptions": [
+      "Counts are derived only from studies returned by ClinicalTrials.gov for the built query.term.",
+      "Multi-phase trials are counted once per phase label present in the study record."
+    ],
+    "warnings": null
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "visualization": {
+    "type": "network_graph",
+    "title": "Sponsor \u2194 drug network (trial co-occurrence)",
+    "encoding": {
+      "nodes": "nodes",
+      "edges": "edges",
+      "source": "source",
+      "target": "target",
+      "weight": "weight"
+    },
+    "data": [
+      {
+        "nodes": [
+          {
+            "id": "sponsor:Sponsor One",
+            "label": "Sponsor One",
+            "kind": "sponsor"
+          },
+          {
+            "id": "drug:DrugA",
+            "label": "DrugA",
+            "kind": "drug"
+          },
+          {
+            "id": "sponsor:Sponsor Two",
+            "label": "Sponsor Two",
+            "kind": "sponsor"
+          },
+          {
+            "id": "drug:DrugB",
+            "label": "DrugB",
+            "kind": "drug"
+          }
+        ],
+        "edges": [
+          {
+            "source": "sponsor:Sponsor One",
+            "target": "drug:DrugA",
+            "weight": 2,
+            "citations": [
+              {
+                "nct_id": "NCT10000001",
+                "excerpt": "Example diabetes drug trial | Diabetes Mellitus | DrugA"
+              },
+              {
+                "nct_id": "NCT10000003",
+                "excerpt": "Example diabetes drug trial | Diabetes Mellitus | DrugA"
+              }
+            ]
+          },
+          {
+            "source": "sponsor:Sponsor Two",
+            "target": "drug:DrugB",
+            "weight": 1,
+            "citations": [
+              {
+                "nct_id": "NCT10000002",
+                "excerpt": "Example diabetes drug trial | Diabetes Mellitus | DrugB"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "meta": {
+    "units": "trials",
+    "sort": null,
+    "time_granularity": null,
+    "group_by": "sponsor,drug",
+    "filters": {
+      "condition": "diabetes",
+      "query_term": "diabetes"
+    },
+    "source": {
+      "name": "ClinicalTrials.gov",
+      "api": "https://clinicaltrials.gov/api/v2/studies",
+      "retrieved_at": "2026-04-03T16:04:24.606005Z",
+      "result_count": 3
+    },
+    "assumptions": [
+      "Counts are derived only from studies returned by ClinicalTrials.gov for the built query.term.",
+      "Multi-phase trials are counted once per phase label present in the study record."
+    ],
+    "warnings": null
+  }
+}

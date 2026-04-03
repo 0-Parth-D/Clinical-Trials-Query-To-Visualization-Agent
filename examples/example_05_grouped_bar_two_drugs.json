@@ -1,0 +1,70 @@
+{
+  "visualization": {
+    "type": "grouped_bar_chart",
+    "title": "Trials by phase: DrugA vs DrugB",
+    "encoding": {
+      "x": "phase",
+      "y": "trial_count",
+      "series": "series",
+      "color": "series"
+    },
+    "data": [
+      {
+        "phase": "Phase 1",
+        "series": "DrugA",
+        "trial_count": 1,
+        "citations": [
+          {
+            "nct_id": "NCT10000001",
+            "excerpt": "Example diabetes drug trial | Diabetes Mellitus | DrugA"
+          }
+        ]
+      },
+      {
+        "phase": "Phase 2",
+        "series": "DrugA",
+        "trial_count": 1,
+        "citations": [
+          {
+            "nct_id": "NCT10000003",
+            "excerpt": "Example diabetes drug trial | Diabetes Mellitus | DrugA"
+          }
+        ]
+      },
+      {
+        "phase": "Phase 2",
+        "series": "DrugB",
+        "trial_count": 1,
+        "citations": [
+          {
+            "nct_id": "NCT10000002",
+            "excerpt": "Example diabetes drug trial | Diabetes Mellitus | DrugB"
+          }
+        ]
+      }
+    ]
+  },
+  "meta": {
+    "units": "trials",
+    "sort": null,
+    "time_granularity": null,
+    "group_by": "phase,series",
+    "filters": {
+      "condition": "diabetes",
+      "drug_name": "DrugA",
+      "comparison_drug": "DrugB",
+      "query_term": "AREA[InterventionName]DrugA OR AREA[InterventionName]DrugB"
+    },
+    "source": {
+      "name": "ClinicalTrials.gov",
+      "api": "https://clinicaltrials.gov/api/v2/studies",
+      "retrieved_at": "2026-04-03T16:04:24.607180Z",
+      "result_count": 3
+    },
+    "assumptions": [
+      "Counts are derived only from studies returned by ClinicalTrials.gov for the built query.term.",
+      "Multi-phase trials are counted once per phase label present in the study record."
+    ],
+    "warnings": null
+  }
+}

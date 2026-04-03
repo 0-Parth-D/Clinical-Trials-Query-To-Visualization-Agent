@@ -1,0 +1,28 @@
+{
+  "protocolSection": {
+    "identificationModule": {
+      "nctId": "NCT09999999",
+      "briefTitle": "Example diabetes drug trial",
+      "organization": { "fullName": "Example Pharma Inc." }
+    },
+    "statusModule": {
+      "overallStatus": "RECRUITING",
+      "startDateStruct": { "date": "2020-06-01", "type": "ACTUAL" }
+    },
+    "designModule": {
+      "phases": ["PHASE2"],
+      "enrollmentInfo": { "count": 120, "type": "ESTIMATED" }
+    },
+    "conditionsModule": { "conditions": ["Diabetes Mellitus"] },
+    "armsInterventionsModule": {
+      "interventions": [
+        { "type": "DRUG", "name": "Metformin" },
+        { "type": "DRUG", "name": "Placebo" }
+      ]
+    },
+    "contactsLocationsModule": {
+      "locations": [{ "country": "United States", "city": "Boston" }],
+      "centralContacts": []
+    }
+  }
+}

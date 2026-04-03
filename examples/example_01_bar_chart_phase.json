@@ -1,0 +1,43 @@
+{
+  "visualization": {
+    "type": "bar_chart",
+    "title": "Trials by phase",
+    "encoding": {
+      "x": "phase",
+      "y": "trial_count"
+    },
+    "data": [
+      {
+        "phase": "Phase 2",
+        "trial_count": 1,
+        "citations": [
+          {
+            "nct_id": "NCT09999999",
+            "excerpt": "Example diabetes drug trial | Diabetes Mellitus | Metformin | Placebo"
+          }
+        ]
+      }
+    ]
+  },
+  "meta": {
+    "units": "trials",
+    "sort": null,
+    "time_granularity": null,
+    "group_by": "phase",
+    "filters": {
+      "condition": "diabetes",
+      "query_term": "AREA[ConditionSearch]diabetes"
+    },
+    "source": {
+      "name": "ClinicalTrials.gov",
+      "api": "https://clinicaltrials.gov/api/v2/studies",
+      "retrieved_at": "2026-04-03T16:04:24.588731Z",
+      "result_count": 1
+    },
+    "assumptions": [
+      "Counts are derived only from studies returned by ClinicalTrials.gov for the built query.term.",
+      "Multi-phase trials are counted once per phase label present in the study record."
+    ],
+    "warnings": null
+  }
+}
