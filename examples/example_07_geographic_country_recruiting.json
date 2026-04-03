@@ -1,0 +1,55 @@
+{
+  "visualization": {
+    "type": "bar_chart",
+    "title": "Trials by country (site locations)",
+    "encoding": {
+      "x": "country",
+      "y": "trial_count"
+    },
+    "data": [
+      {
+        "country": "United States",
+        "trial_count": 1,
+        "citations": [
+          {
+            "nct_id": "NCT20000001",
+            "excerpt": "Example diabetes drug trial | Diabetes Mellitus | GeoDrug"
+          }
+        ]
+      },
+      {
+        "country": "Canada",
+        "trial_count": 1,
+        "citations": [
+          {
+            "nct_id": "NCT20000002",
+            "excerpt": "Example diabetes drug trial | Diabetes Mellitus | GeoDrug"
+          }
+        ]
+      }
+    ]
+  },
+  "meta": {
+    "units": "trials",
+    "sort": null,
+    "time_granularity": null,
+    "group_by": "country",
+    "filters": {
+      "condition": "diabetes",
+      "recruiting_only": true,
+      "query_term": "AREA[ConditionSearch]diabetes AND AREA[OverallStatus]RECRUITING"
+    },
+    "source": {
+      "name": "ClinicalTrials.gov",
+      "api": "https://clinicaltrials.gov/api/v2/studies",
+      "retrieved_at": "2026-04-03T16:04:24.609878Z",
+      "result_count": 2
+    },
+    "assumptions": [
+      "Counts are derived only from studies returned by ClinicalTrials.gov for the built query.term.",
+      "Multi-phase trials are counted once per phase label present in the study record.",
+      "Appendix: geographic / recruiting pattern."
+    ],
+    "warnings": null
+  }
+}
