@@ -35,6 +35,13 @@ class QueryRequest(BaseModel):
         default=None,
         description="Optional drug or intervention name; tightens filters when set.",
     )
+    comparison_drug: str | None = Field(
+        default=None,
+        description=(
+            "Second intervention for A vs B / grouped bar charts. "
+            "Prefer this field over embedding comparison_drug only in extra_filters."
+        ),
+    )
     condition: str | None = Field(
         default=None,
         description="Optional disease or condition label.",
@@ -84,3 +91,17 @@ class QueryRequest(BaseModel):
         ):
             raise ValueError("start_year must be less than or equal to end_year")
         return self
+
+
+def request_comparison_drug(body: QueryRequest) -> str | None:
+    """Comparison intervention: top-level field, then extra_filters (legacy)."""
+    if body.comparison_drug is not None:
+        t = str(body.comparison_drug).strip()
+        if t:
+            return t
+    extra = body.extra_filters
+    if isinstance(extra, dict):
+        v = extra.get("comparison_drug")
+        if isinstance(v, str) and v.strip():
+            return v.strip()
+    return None

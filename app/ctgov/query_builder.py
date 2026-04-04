@@ -7,11 +7,21 @@ from dataclasses import dataclass
 from typing import Any
 
 from app.intent.models import QueryIntent
-from app.schemas.request import QueryRequest
+from app.schemas.request import QueryRequest, request_comparison_drug
 
 
 def _q(s: str) -> str:
     return " ".join(s.split())
+
+
+def _extra_str(extra: dict[str, Any] | None, key: str) -> str | None:
+    """Non-empty string from request.extra_filters, if present."""
+    if not isinstance(extra, dict):
+        return None
+    v = extra.get(key)
+    if isinstance(v, str) and v.strip():
+        return v.strip()
+    return None
 
 
 def _area(field: str, value: str) -> str:
@@ -45,6 +55,8 @@ def effective_filters(body: QueryRequest, intent: QueryIntent) -> EffectiveFilte
 
     cond = pick(body.condition, "condition")
     drug = pick(body.drug_name, "drug_name")
+    if not drug or not str(drug).strip():
+        drug = _extra_str(body.extra_filters, "drug_name")
     sponsor = pick(body.sponsor, "sponsor")
     country = pick(body.country, "country")
     phase = pick(body.trial_phase, "trial_phase")
@@ -52,11 +64,15 @@ def effective_filters(body: QueryRequest, intent: QueryIntent) -> EffectiveFilte
     end_y = body.end_year if body.end_year is not None else intent.filters.get("end_year")
     recruiting = bool(intent.filters.get("recruiting_only", False))
 
-    comparison = intent.comparison_drug
-    if isinstance(comparison, str):
-        comparison = comparison.strip() or None
-    else:
+    # Per-country bar chart ignores comparison (stale UI field + meta noise).
+    country_bar = intent.viz_goal == "bar_chart" and intent.dimension_hint == "country"
+    if country_bar:
         comparison = None
+    else:
+        comparison = request_comparison_drug(body)
+        if not comparison:
+            c = intent.comparison_drug
+            comparison = c.strip() if isinstance(c, str) and c.strip() else None
 
     if isinstance(start_y, str) and start_y.isdigit():
         start_y = int(start_y)
@@ -102,7 +118,8 @@ def build_query_term(ef: EffectiveFilters, intent: QueryIntent) -> str:
     parts: list[str] = []
     or_drug_clause: str | None = None
 
-    if intent.viz_goal == "grouped_bar_chart" and ef.drug_name and ef.comparison_drug:
+    # OR both interventions whenever effective filters include a pair (country-bar intent clears comparison).
+    if ef.drug_name and ef.comparison_drug:
         or_drug_clause = (
             f"(AREA[InterventionName]{_q(ef.drug_name)} OR "
             f"AREA[InterventionName]{_q(ef.comparison_drug)})"

@@ -2,9 +2,8 @@
 
 from __future__ import annotations
 
-from functools import lru_cache
-
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 from app.config import Settings
 from app.ctgov import (
@@ -18,8 +17,8 @@ from app.schemas import QueryRequest, VisualizationResponse
 from app.viz import build_visualization
 
 
-@lru_cache
 def get_settings() -> Settings:
+    """Fresh settings each call so `.env` edits apply without fighting a stale cache."""
     return Settings()
 
 
@@ -30,6 +29,17 @@ app = FastAPI(
         "Accepts natural language plus optional structured filters, fetches "
         "ClinicalTrials.gov v2 studies, and returns chart-ready JSON with deep citations."
     ),
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:5173",
+        "http://127.0.0.1:5173",
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 

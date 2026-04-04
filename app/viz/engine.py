@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import re
 from collections import defaultdict
 from datetime import datetime, timezone
 from typing import Any
@@ -29,8 +30,14 @@ def _intervention_matches(record: TrialRecord, name: str | None) -> bool:
     if not n:
         return False
     for inter in record.interventions:
-        if n in inter.lower():
+        il = inter.lower()
+        if n in il:
             return True
+    # Substring match on significant tokens (helps generic vs trade names on CT.gov).
+    for token in re.findall(r"[a-z0-9][a-z0-9\-]{3,}", n):
+        for inter in record.interventions:
+            if token in inter.lower():
+                return True
     return False
 
 
@@ -324,6 +331,12 @@ def build_visualization(
                     "trial_count": acc.count,
                     "citations": _citations(acc.trials, settings),
                 }
+            )
+        if len(rows) == 1 and rows[0].get("country") == "Unknown":
+            warn_merge.append(
+                "No facility countries were found on the returned studies; "
+                "everything is grouped as 'Unknown'. Location fields are sometimes "
+                "missing from API list payloads for individual hits."
             )
         spec = VisualizationSpec(
             type=VizType.bar_chart,

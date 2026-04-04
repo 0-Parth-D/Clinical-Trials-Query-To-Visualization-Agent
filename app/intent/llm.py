@@ -36,7 +36,9 @@ def interpret_llm(body: QueryRequest, settings: Settings) -> QueryIntent | None:
         "trial_phase, start_year, end_year, recruiting_only boolean), "
         f"viz_goal (one of {VIZ_ENUM}), dimension_hint (string or null), "
         "comparison_drug (string or null), notes (string or null). "
-        "Never invent trial counts. If comparing two drugs, set comparison_drug."
+        "The HTTP request may include top-level drug_name and comparison_drug; "
+        "if both are set, use viz_goal grouped_bar_chart and the same comparison_drug. "
+        "Never invent trial counts."
     )
     user = f"Request JSON:\n{json.dumps(req_dump, ensure_ascii=False, indent=2)}"
 
